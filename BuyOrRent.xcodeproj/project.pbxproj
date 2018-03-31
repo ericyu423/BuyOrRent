@@ -16,6 +16,7 @@
 		D43305F0206F1A120097465D /* BuyOrRentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43305EF206F1A120097465D /* BuyOrRentTests.swift */; };
 		D43305FB206F1A120097465D /* BuyOrRentUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43305FA206F1A120097465D /* BuyOrRentUITests.swift */; };
 		D4330609206F20C50097465D /* CarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4330608206F20C50097465D /* CarViewController.swift */; };
+		D433060B206F58020097465D /* README in Resources */ = {isa = PBXBuildFile; fileRef = D433060A206F58020097465D /* README */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		D43305FA206F1A120097465D /* BuyOrRentUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyOrRentUITests.swift; sourceTree = "<group>"; };
 		D43305FC206F1A120097465D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D4330608206F20C50097465D /* CarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarViewController.swift; sourceTree = "<group>"; };
+		D433060A206F58020097465D /* README */ = {isa = PBXFileReference; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 		D43305CB206F1A110097465D = {
 			isa = PBXGroup;
 			children = (
+				D433060A206F58020097465D /* README */,
 				D43305D6206F1A110097465D /* BuyOrRent */,
 				D43305EE206F1A120097465D /* BuyOrRentTests */,
 				D43305F9206F1A120097465D /* BuyOrRentUITests */,
@@ -238,6 +241,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D433060B206F58020097465D /* README in Resources */,
 				D43305E5206F1A120097465D /* LaunchScreen.storyboard in Resources */,
 				D43305E2206F1A120097465D /* Assets.xcassets in Resources */,
 				D43305DD206F1A120097465D /* Main.storyboard in Resources */,
