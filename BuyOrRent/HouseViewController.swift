@@ -10,44 +10,60 @@ import UIKit
 @IBDesignable
 class HouseViewController: UIViewController{
     
-    @IBOutlet var rentPicker: UIPickerView!
     @IBOutlet weak var rentTextField: UITextField!
     @IBOutlet weak var priceRangeATextField: UITextField!
     @IBOutlet weak var priceRangeBTextField: UITextField!
     
-    var currentRent = 0;
+    var currentRent: Int = 0 {
+        didSet {
+          print("value change recalculate")
+        }
     
-    enum CurrentTextField {
-        case priceRangeA
-        case priceRangeB
-        case rent
     }
     
-    let rent = [
-                 [0,1,2,3,4,5,6,7,8,9],
-                 [0,1,2,3,4,5,6,7,8,9],
-                 [0,1,2,3,4,5,6,7,8,9],
-                 [0,1,2,3,4,5,6,7,8,9],
-               ]
-    
+    var range1: Int = 0 {
+        didSet {
+            print("range1 change recalculate")
+        }
+    }
+    var range2: Int = 0 {
+        didSet {
+            print("range2 change recalculate")
+        }
+    }
 
+    @IBAction func rentTextFieldClicked(_ sender: UITextField) {
+        
+        
+        currentRent = covertSenderTextToInt(sender: sender)
+    }
+    @IBAction func priceRangeOneClicked(_ sender: UITextField) {
+        
+        range1 = covertSenderTextToInt(sender: sender)
+        
+    }
+    @IBAction func priceRnageTwoClicked(_ sender: UITextField) {
+        
+        range2 = covertSenderTextToInt(sender: sender)
+        
+    }
     
+    private func covertSenderTextToInt(sender: UITextField)-> Int{
+        guard let senderText = sender.text else {return 0}
+        guard let senderTextInInt = Int(senderText) else {return 0}
+        return senderTextInInt
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         initializeNavigationBar()
-        initializeTextFields()
         initializedTextView()
-        initializeUIPicker()
+     
 
     }
     
-    private func initializeUIPicker(){
-        rentPicker.delegate = self
-        rentPicker.dataSource = self
-    }
-    
+   
     private func initializeNavigationBar() {
-        navigationItem.title = "House"
+        navigationItem.title = "Rent Vs Buy"
     }
     
     private func initializedTextView(){
@@ -56,12 +72,7 @@ class HouseViewController: UIViewController{
         priceRangeBTextField.delegate = self
     }
     
-    private func initializeTextFields(){
-        rentTextField.inputView = rentPicker
-        priceRangeATextField.inputView = rentPicker
-        priceRangeBTextField.inputView = rentPicker
-    }
-    
+
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         rentTextField.resignFirstResponder()
         priceRangeATextField.resignFirstResponder()
@@ -74,47 +85,11 @@ class HouseViewController: UIViewController{
 //MARK- TextView Delegate
 extension HouseViewController:UITextFieldDelegate {
     
-    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+    }
     
     
 }
 
-
-//MARK:- Picker Delegate
-
-extension HouseViewController: UIPickerViewDataSource, UIPickerViewDelegate {
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        
-     
-        return rent.count
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        
-        
-        return rent[component].count
-    }
-    
-   
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
-        rentTextField.text = String(returnRentValue(baseOn: pickerView))
-        
-    }
-    
-    private func returnRentValue(baseOn pickerView: UIPickerView) -> Int{
-        
-        return pickerView.selectedRow(inComponent: 0) * 1000 + pickerView.selectedRow(inComponent: 1) * 100 + pickerView.selectedRow(inComponent: 2) * 10 + pickerView.selectedRow(inComponent: 3) * 1
-        
-    }
-    
-
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        
-        return String(rent[component][row])
-    }
-  
-  
-}
 
