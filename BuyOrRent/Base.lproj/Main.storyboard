@@ -40,6 +40,14 @@
                                             <action selector="rentTextFieldClicked:" destination="BYZ-38-t0r" eventType="editingChanged" id="Bdf-Ra-hhq"/>
                                         </connections>
                                     </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kr0-KX-JM5">
+                                        <rect key="frame" x="8" y="122" width="172" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="3%"/>
+                                        <connections>
+                                            <action selector="rentIncreasePerYear:" destination="BYZ-38-t0r" eventType="touchUpInside" id="awp-Xt-cAA"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="13s-V8-X0E" secondAttribute="trailing" constant="8" id="oCN-qY-AXy"/>

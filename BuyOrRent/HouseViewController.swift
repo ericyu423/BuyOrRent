@@ -14,6 +14,17 @@ class HouseViewController: UIViewController{
     @IBOutlet weak var priceRangeATextField: UITextField!
     @IBOutlet weak var priceRangeBTextField: UITextField!
     
+    let interestArray = Array(0...10) //interest rate %
+
+    
+    lazy var pickerView: UIPickerView = {
+        let pickerView = UIPickerView()
+        pickerView.dataSource = self
+        pickerView.delegate = self
+        pickerView.backgroundColor = UIColor.lightGray
+        return pickerView
+    }()
+    
     var currentRent: Int = 0 {
         didSet {
           print("value change recalculate")
@@ -47,6 +58,11 @@ class HouseViewController: UIViewController{
         range2 = covertSenderTextToInt(sender: sender)
         
     }
+    @IBAction func rentIncreasePerYear(_ sender: UIButton) {
+        
+        pickerView.isHidden = false
+        
+    }
     
     private func covertSenderTextToInt(sender: UITextField)-> Int{
         guard let senderText = sender.text else {return 0}
@@ -57,8 +73,9 @@ class HouseViewController: UIViewController{
         super.viewDidLoad()
         initializeNavigationBar()
         initializedTextView()
+        
      
-
+ 
     }
     
    
@@ -77,9 +94,44 @@ class HouseViewController: UIViewController{
         rentTextField.resignFirstResponder()
         priceRangeATextField.resignFirstResponder()
         priceRangeBTextField.resignFirstResponder()
+    }
+}
+
+//MARK:- Picker Delegate
+
+extension HouseViewController: UIPickerViewDataSource, UIPickerViewDelegate {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        
+        
+        return interestArray.count
+    }
+    
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
         
         
     }
+    
+   
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        
+        return displayInterestFrom(row: row)
+    }
+    
+    private func displayInterestFrom(row: Int) -> String {
+            return String(interestArray[row]) + "%"
+    
+    }
+    
+    
+
 }
 
 //MARK- TextView Delegate
