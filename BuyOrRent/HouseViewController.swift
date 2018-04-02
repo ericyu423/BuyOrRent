@@ -14,22 +14,20 @@ class HouseViewController: UIViewController{
     @IBOutlet weak var priceRangeATextField: UITextField!
     @IBOutlet weak var priceRangeBTextField: UITextField!
     
+    @IBOutlet weak var annualRentRaise: UITextField!
+    @IBOutlet weak var annualMortgageRate: UITextField!
+
     let interestArray = Array(0...10) //interest rate %
+    let mortgageArray = Array(0...99)
+    
 
     
-    lazy var pickerView: UIPickerView = {
-        let pickerView = UIPickerView()
-        pickerView.dataSource = self
-        pickerView.delegate = self
-        pickerView.backgroundColor = UIColor.lightGray
-        return pickerView
-    }()
+    @IBOutlet var pickerView: UIPickerView!
     
     var currentRent: Int = 0 {
         didSet {
           print("value change recalculate")
         }
-    
     }
     
     var range1: Int = 0 {
@@ -44,8 +42,6 @@ class HouseViewController: UIViewController{
     }
 
     @IBAction func rentTextFieldClicked(_ sender: UITextField) {
-        
-        
         currentRent = covertSenderTextToInt(sender: sender)
     }
     @IBAction func priceRangeOneClicked(_ sender: UITextField) {
@@ -54,14 +50,10 @@ class HouseViewController: UIViewController{
         
     }
     @IBAction func priceRnageTwoClicked(_ sender: UITextField) {
-        
         range2 = covertSenderTextToInt(sender: sender)
-        
     }
     @IBAction func rentIncreasePerYear(_ sender: UIButton) {
-        
         pickerView.isHidden = false
-        
     }
     
     private func covertSenderTextToInt(sender: UITextField)-> Int{
@@ -71,29 +63,25 @@ class HouseViewController: UIViewController{
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        initializeNavigationBar()
-        initializedTextView()
-        
-     
- 
-    }
-    
-   
-    private func initializeNavigationBar() {
         navigationItem.title = "Rent Vs Buy"
-    }
-    
-    private func initializedTextView(){
-        rentTextField.delegate = self
         priceRangeATextField.delegate = self
         priceRangeBTextField.delegate = self
+        
+        pickerView.delegate = self
+        pickerView.dataSource = self
+        annualRentRaise.delegate = self
+        annualMortgageRate.delegate = self
+        
+        pickerView.backgroundColor = .lightGray
+        
+        annualRentRaise.inputView = pickerView
+        annualMortgageRate.inputView = pickerView
+        annualRentRaise.tintColor = .clear //disable blinker
     }
-    
-
+ 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        rentTextField.resignFirstResponder()
-        priceRangeATextField.resignFirstResponder()
-        priceRangeBTextField.resignFirstResponder()
+         annualRentRaise.resignFirstResponder()
+         annualMortgageRate.resignFirstResponder()
     }
 }
 
@@ -101,35 +89,50 @@ class HouseViewController: UIViewController{
 
 extension HouseViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        
         return 1
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        
-        
-        return interestArray.count
+        if (annualRentRaise.isFirstResponder) {
+            return interestArray.count
+        }else {
+            return mortgageArray.count
+        }
     }
     
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
-        
-        
+        if (annualRentRaise.isFirstResponder) {
+            annualRentRaise.text = displayInterestFrom(row: row)
+        }else if (annualMortgageRate.isFirstResponder){
+            annualMortgageRate.text = displayMortageFrom(row:  row)
+        }
     }
     
    
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
-        return displayInterestFrom(row: row)
+        if (annualRentRaise.isFirstResponder) {
+            return displayInterestFrom(row: row)
+        }
+        
+            return displayMortageFrom(row:  row)
+       
+        
+    
     }
     
     private func displayInterestFrom(row: Int) -> String {
             return String(interestArray[row]) + "%"
     
     }
-    
+    private func displayMortageFrom(row: Int) -> String {
+        let mortageRate: Double = Double(mortgageArray[row])/10.0
+        
+            return String(format: "%.1f",mortageRate) + "%"
+    }
     
 
 }
@@ -138,6 +141,25 @@ extension HouseViewController: UIPickerViewDataSource, UIPickerViewDelegate {
 extension HouseViewController:UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
+           pickerView.reloadAllComponents()
+           let row = getCurrentRate(textField: textField)
+           pickerView.selectRow(row, inComponent: 0, animated: true)
+    }
+    
+    private func getCurrentRate(textField: UITextField) -> Int{
+        
+        guard var currentRate = textField.text else {
+            return 0
+        }
+        
+        currentRate = currentRate.replacingOccurrences(of: "[^1234567890]", with: "" ,options: [.regularExpression])
+        
+        guard let currentRateInt = Int(currentRate) else {
+            return 0
+        }
+        return currentRateInt
+        
+       
         
     }
     
