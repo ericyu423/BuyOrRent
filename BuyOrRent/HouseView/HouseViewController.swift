@@ -7,7 +7,11 @@
 //
 
 import UIKit
-@IBDesignable
+
+let LAST_RENT_VALUE = "lastRentValue"
+let LAST_RANGE_1_VALUE = "lastRange1Value"
+let LAST_RANGE_2_VALUE = "lastRange2Value"
+
 class HouseViewController: UIViewController{
     
     let maxYear = 30
@@ -28,18 +32,18 @@ class HouseViewController: UIViewController{
     
     @IBOutlet var pickerView: UIPickerView!
     
-    var currentRent: Int = 0 {
+    var currentRent: Int = 1000 {
         didSet {
             tableView.reloadData()
         }
     }
     
-    var range1: Int = 0 {
+    var range1: Int = 250000 {
         didSet {
             tableView.reloadData()
         }
     }
-    var range2: Int = 0 {
+    var range2: Int = 550000 {
         didSet {
             tableView.reloadData()
         }
@@ -81,6 +85,33 @@ class HouseViewController: UIViewController{
         annualRentRaise.inputView = pickerView
         annualMortgageRate.inputView = pickerView
         annualRentRaise.tintColor = .clear //disable blinker
+        
+        loadLastSavedInput()
+    }
+    
+    private func loadLastSavedInput(){
+        
+        
+        //default
+       
+        
+        //TODO: use NSDefault or CoreData
+        //load default if any else set default
+        if let rent = UserDefaults.standard.object(forKey: LAST_RENT_VALUE){
+            currentRent = rent as? Int ?? 0
+        }
+        if let rangeA = UserDefaults.standard.object(forKey: LAST_RANGE_1_VALUE) {
+            range1 = rangeA as? Int ?? 0
+        }
+       if let rangeB = UserDefaults.standard.object(forKey: LAST_RANGE_2_VALUE)
+       {
+            range2 = rangeB as? Int ?? 0
+        }
+        
+        rentTextField.placeholder = "\(currentRent)"
+        priceRangeATextField.placeholder = "\(range1)"
+        priceRangeBTextField.placeholder = "\(range2)"
+   
     }
  
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -185,7 +216,10 @@ extension HouseViewController: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! HouseTableViewCell
         
-
+        guard var annualMortgageRateString = annualMortgageRate.text else {return cell}
+         annualMortgageRateString = annualMortgageRateString.replacingOccurrences(of: "%", with: "")
+        guard let annualMortgageRateDouble: Double = Double(annualMortgageRateString) else {return cell }
+        
         
         guard var annualRentRaiseString = annualRentRaise.text else {return cell}
         annualRentRaiseString = annualRentRaiseString.replacingOccurrences(of: "%", with: "")
@@ -193,8 +227,10 @@ extension HouseViewController: UITableViewDelegate,UITableViewDataSource {
         
       
         let currentRentAccumlation = financeBrain.totalRentFor(baseRent: currentRent, increasePercentage: annualRentRaiseDouble, years: indexPath.row+1)
+        let mortgage1Accumation = financeBrain.monthlyMortgage(numberOfYears: 30, rate: annualMortgageRateDouble/100, principal: Double(range1),year: (indexPath.row + 1))
+        let mortgage2Accumation = financeBrain.monthlyMortgage(numberOfYears: 30, rate:annualMortgageRateDouble/100, principal: Double(range2),year:(indexPath.row + 1))
         
-        cell.setLabels(year: "year \(indexPath.row + 1)", rent: "\(Int(currentRentAccumlation))", mortgage1: "", mortgage2: "")
+        cell.setLabels(year: "year \(indexPath.row + 1)", rent: "\(Int(currentRentAccumlation))", mortgage1: "\(Int(mortgage1Accumation))", mortgage2: "\(Int(mortgage2Accumation))")
        
         return cell
     }

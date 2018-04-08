@@ -29,8 +29,8 @@ class HouseTableViewCell: UITableViewCell {
         
         tableFirstColumnLabel.text = year
         rentTableValue.text = rent.formatStringNumberToMoneyUS()
-        mortgageTableValue1.text = mortgage1
-         mortgageTableValue2.text = mortgage2
+        mortgageTableValue1.text = mortgage1.formatStringNumberToMoneyUS()
+         mortgageTableValue2.text = mortgage2.formatStringNumberToMoneyUS()
         
     }
 
