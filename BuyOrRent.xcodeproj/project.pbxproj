@@ -17,6 +17,10 @@
 		D43305FB206F1A120097465D /* BuyOrRentUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43305FA206F1A120097465D /* BuyOrRentUITests.swift */; };
 		D4330609206F20C50097465D /* CarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4330608206F20C50097465D /* CarViewController.swift */; };
 		D433060B206F58020097465D /* README in Resources */ = {isa = PBXBuildFile; fileRef = D433060A206F58020097465D /* README */; };
+		D45EDF49207A821D00871D52 /* HouseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45EDF48207A821D00871D52 /* HouseTableViewCell.swift */; };
+		D45EDF4B207A85E500871D52 /* testTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45EDF4A207A85E500871D52 /* testTableViewController.swift */; };
+		D45EDF4D207A87B400871D52 /* FinanceBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45EDF4C207A87B400871D52 /* FinanceBrain.swift */; };
+		D45EDF4F207A9CF000871D52 /* HelperFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45EDF4E207A9CF000871D52 /* HelperFile.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +57,10 @@
 		D43305FC206F1A120097465D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D4330608206F20C50097465D /* CarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarViewController.swift; sourceTree = "<group>"; };
 		D433060A206F58020097465D /* README */ = {isa = PBXFileReference; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		D45EDF48207A821D00871D52 /* HouseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseTableViewCell.swift; sourceTree = "<group>"; };
+		D45EDF4A207A85E500871D52 /* testTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testTableViewController.swift; sourceTree = "<group>"; };
+		D45EDF4C207A87B400871D52 /* FinanceBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinanceBrain.swift; sourceTree = "<group>"; };
+		D45EDF4E207A9CF000871D52 /* HelperFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperFile.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,7 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				D43305D7206F1A110097465D /* AppDelegate.swift */,
-				D43305D9206F1A110097465D /* HouseViewController.swift */,
+				D45EDF47207A81F200871D52 /* HouseView */,
 				D4330608206F20C50097465D /* CarViewController.swift */,
 				D43305DB206F1A120097465D /* Main.storyboard */,
 				D43305E1206F1A120097465D /* Assets.xcassets */,
@@ -132,6 +140,18 @@
 				D43305FC206F1A120097465D /* Info.plist */,
 			);
 			path = BuyOrRentUITests;
+			sourceTree = "<group>";
+		};
+		D45EDF47207A81F200871D52 /* HouseView */ = {
+			isa = PBXGroup;
+			children = (
+				D43305D9206F1A110097465D /* HouseViewController.swift */,
+				D45EDF4C207A87B400871D52 /* FinanceBrain.swift */,
+				D45EDF48207A821D00871D52 /* HouseTableViewCell.swift */,
+				D45EDF4E207A9CF000871D52 /* HelperFile.swift */,
+				D45EDF4A207A85E500871D52 /* testTableViewController.swift */,
+			);
+			path = HouseView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -197,7 +217,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "eric yu";
 				TargetAttributes = {
 					D43305D3206F1A110097465D = {
@@ -272,7 +292,11 @@
 				D43305DA206F1A110097465D /* HouseViewController.swift in Sources */,
 				D43305E0206F1A120097465D /* BuyOrRent.xcdatamodeld in Sources */,
 				D43305D8206F1A110097465D /* AppDelegate.swift in Sources */,
+				D45EDF4F207A9CF000871D52 /* HelperFile.swift in Sources */,
 				D4330609206F20C50097465D /* CarViewController.swift in Sources */,
+				D45EDF49207A821D00871D52 /* HouseTableViewCell.swift in Sources */,
+				D45EDF4B207A85E500871D52 /* testTableViewController.swift in Sources */,
+				D45EDF4D207A87B400871D52 /* FinanceBrain.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,6 +365,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -348,6 +373,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -398,6 +424,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -405,6 +432,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

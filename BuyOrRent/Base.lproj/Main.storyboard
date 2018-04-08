@@ -117,11 +117,11 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Q9t-4k-BoM">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Q9t-4k-BoM">
                                 <rect key="frame" x="0.0" y="210" width="375" height="408"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="gFK-EV-leO">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="gFK-EV-leO" customClass="HouseTableViewCell" customModule="BuyOrRent" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gFK-EV-leO" id="odJ-Hv-hLH">
@@ -179,9 +179,8 @@
                                                         </view>
                                                     </subviews>
                                                 </stackView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Year 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CHx-za-mXE">
-                                                    <rect key="frame" x="9" y="11" width="46" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Year 1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CHx-za-mXE">
+                                                    <rect key="frame" x="0.0" y="0.0" width="65" height="43.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -190,12 +189,26 @@
                                             <constraints>
                                                 <constraint firstItem="cEm-9s-h6v" firstAttribute="top" secondItem="odJ-Hv-hLH" secondAttribute="top" id="8e5-Hp-17Z"/>
                                                 <constraint firstAttribute="trailing" secondItem="cEm-9s-h6v" secondAttribute="trailing" id="IdR-zm-8Fp"/>
+                                                <constraint firstAttribute="bottom" secondItem="CHx-za-mXE" secondAttribute="bottom" id="XGC-Fd-o5j"/>
+                                                <constraint firstItem="cEm-9s-h6v" firstAttribute="leading" secondItem="CHx-za-mXE" secondAttribute="trailing" id="Z4T-8a-VRH"/>
+                                                <constraint firstItem="CHx-za-mXE" firstAttribute="top" secondItem="odJ-Hv-hLH" secondAttribute="top" id="dHE-aY-doP"/>
                                                 <constraint firstItem="cEm-9s-h6v" firstAttribute="leading" secondItem="odJ-Hv-hLH" secondAttribute="leading" constant="65" id="gPx-UB-zZZ"/>
+                                                <constraint firstItem="CHx-za-mXE" firstAttribute="leading" secondItem="odJ-Hv-hLH" secondAttribute="leading" id="hUY-8R-rVg"/>
                                                 <constraint firstAttribute="bottom" secondItem="cEm-9s-h6v" secondAttribute="bottom" id="jfK-Zj-Thj"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="mortgageTableValue1" destination="4dH-XZ-Wsj" id="do0-DJ-MMf"/>
+                                            <outlet property="mortgageTableValue2" destination="YcF-vJ-IDW" id="EYq-9X-vIq"/>
+                                            <outlet property="rentTableValue" destination="qCs-N5-UDg" id="WYs-yh-bzg"/>
+                                            <outlet property="tableFirstColumnLabel" destination="CHx-za-mXE" id="SBx-6I-gDO"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="Tfv-bk-SdX"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="bEl-nx-bQz"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -230,6 +243,7 @@
                         <outlet property="priceRangeATextField" destination="H7j-vk-iBQ" id="cg6-aj-qSE"/>
                         <outlet property="priceRangeBTextField" destination="3ug-xO-WHc" id="SWW-Jo-sRg"/>
                         <outlet property="rentTextField" destination="13s-V8-X0E" id="G4m-Kl-dmy"/>
+                        <outlet property="tableView" destination="Q9t-4k-BoM" id="Bg9-7y-LCE"/>
                     </connections>
                 </viewController>
                 <pickerView contentMode="scaleToFill" id="D4c-8A-X0S">

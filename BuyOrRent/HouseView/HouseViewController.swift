@@ -10,6 +10,10 @@ import UIKit
 @IBDesignable
 class HouseViewController: UIViewController{
     
+    let maxYear = 30
+    let financeBrain = FinanceBrain()
+    
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var rentTextField: UITextField!
     @IBOutlet weak var priceRangeATextField: UITextField!
     @IBOutlet weak var priceRangeBTextField: UITextField!
@@ -26,18 +30,18 @@ class HouseViewController: UIViewController{
     
     var currentRent: Int = 0 {
         didSet {
-          print("value change recalculate")
+            tableView.reloadData()
         }
     }
     
     var range1: Int = 0 {
         didSet {
-            print("range1 change recalculate")
+            tableView.reloadData()
         }
     }
     var range2: Int = 0 {
         didSet {
-            print("range2 change recalculate")
+            tableView.reloadData()
         }
     }
 
@@ -52,9 +56,7 @@ class HouseViewController: UIViewController{
     @IBAction func priceRnageTwoClicked(_ sender: UITextField) {
         range2 = covertSenderTextToInt(sender: sender)
     }
-    @IBAction func rentIncreasePerYear(_ sender: UIButton) {
-        pickerView.isHidden = false
-    }
+   
     
     private func covertSenderTextToInt(sender: UITextField)-> Int{
         guard let senderText = sender.text else {return 0}
@@ -63,6 +65,8 @@ class HouseViewController: UIViewController{
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         navigationItem.title = "Rent Vs Buy"
         priceRangeATextField.delegate = self
         priceRangeBTextField.delegate = self
@@ -158,12 +162,42 @@ extension HouseViewController:UITextFieldDelegate {
             return 0
         }
         return currentRateInt
+ 
+    }
+}
+
+extension HouseViewController: UITableViewDelegate,UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
         
-       
-        
+        return 1
     }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        return maxYear
+    }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 44
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! HouseTableViewCell
+        
+
+        
+        guard var annualRentRaiseString = annualRentRaise.text else {return cell}
+        annualRentRaiseString = annualRentRaiseString.replacingOccurrences(of: "%", with: "")
+        guard let annualRentRaiseDouble: Double = Double(annualRentRaiseString) else {return cell }
+        
+      
+        let currentRentAccumlation = financeBrain.totalRentFor(baseRent: currentRent, increasePercentage: annualRentRaiseDouble, years: indexPath.row+1)
+        
+        cell.setLabels(year: "year \(indexPath.row + 1)", rent: "\(Int(currentRentAccumlation))", mortgage1: "", mortgage2: "")
+       
+        return cell
+    }
 }
 
 
