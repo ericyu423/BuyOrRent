@@ -17,10 +17,15 @@ let MORTGAGE_RATE = "mortgageRate"
 
 class HouseViewController: UIViewController{
     
+   
     let maxYear = 30
     let financeBrain = FinanceBrain()
     
     @IBOutlet weak var tableView: UITableView!
+    
+    @IBOutlet weak var inputTableView: UITableView!
+    
+    
     @IBOutlet weak var rentTextField: UITextField!
     @IBOutlet weak var priceRangeATextField: UITextField!
     @IBOutlet weak var priceRangeBTextField: UITextField!
@@ -31,10 +36,11 @@ class HouseViewController: UIViewController{
     let interestArray = Array(0...10) //interest rate %
     let mortgageArray = Array(0...99)
     
-
+    let textFieldTableArray = ["tax","hoa","insurance","maintenance","eletricity","water" ]
     
     @IBOutlet var pickerView: UIPickerView!
     
+   
     var annualRentRiseValue: Double = 3 {
         didSet {
             tableView.reloadData()
@@ -84,9 +90,7 @@ class HouseViewController: UIViewController{
         return senderTextInInt
     }
     override func viewDidLoad() {
-        super.viewDidLoad()
-        
-       
+   
         navigationItem.title = "Rent Vs Buy"
         priceRangeATextField.delegate = self
         priceRangeBTextField.delegate = self
@@ -101,6 +105,7 @@ class HouseViewController: UIViewController{
         annualRentRaise.inputView = pickerView
         annualMortgageRate.inputView = pickerView
         annualRentRaise.tintColor = .clear //disable blinker
+  
         
         loadLastSavedInput()
     }
@@ -108,6 +113,7 @@ class HouseViewController: UIViewController{
         super.viewDidAppear(animated)
         
         
+       
         self.tabBarController?.tabBar.layer.zPosition = -1
         
     }
@@ -243,7 +249,19 @@ extension HouseViewController: UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return maxYear
+        switch tableView {
+           
+        case self.tableView:
+            
+            return maxYear//
+            
+        case self.inputTableView:
+            
+            return textFieldTableArray.count
+        default:
+            return 0 //error
+        }
+
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -251,8 +269,35 @@ extension HouseViewController: UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! HouseTableViewCell
-   
+        
+        switch tableView {
+            
+        case self.tableView:
+            
+             return cellForTableView(cellForRowAt: indexPath)
+        case self.inputTableView:
+            
+            return cellForInputTableView(cellForRowAt: indexPath)
+        default:
+            return UITableViewCell() //error
+            
+        }
+ 
+    }
+    private func cellForInputTableView(cellForRowAt indexPath: IndexPath)-> HouseInputViewCell{
+        
+        
+          let cell = inputTableView.dequeueReusableCell(withIdentifier: "InputCell", for: indexPath) as! HouseInputViewCell
+        
+        cell.setLabels(currentLabel: textFieldTableArray[indexPath.row])
+        
+        return cell
+        
+    }
+    
+    private func cellForTableView(cellForRowAt indexPath: IndexPath)-> HouseTableViewCell{
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! HouseTableViewCell
+        
         let currentRentAccumlation = financeBrain.totalRentFor(baseRent: currentRent, increasePercentage: annualRentRiseValue, years: indexPath.row+1)
         
         let mortgage1Accumation = financeBrain.monthlyMortgage(numberOfYears: 30, rate: annualMortgageRateValue/1000, principal: Double(range1),year: (indexPath.row + 1))
@@ -260,7 +305,7 @@ extension HouseViewController: UITableViewDelegate,UITableViewDataSource {
         let mortgage2Accumation = financeBrain.monthlyMortgage(numberOfYears: 30, rate:annualMortgageRateValue/1000, principal: Double(range2),year: (indexPath.row + 1))
         
         cell.setLabels(year: "year \(indexPath.row + 1)", rent: "\(Int(currentRentAccumlation))", mortgage1: "\(Int(mortgage1Accumation))", mortgage2: "\(Int(mortgage2Accumation))")
-       
+        
         return cell
     }
 }

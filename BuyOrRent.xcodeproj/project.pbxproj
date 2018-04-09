@@ -21,6 +21,7 @@
 		D45EDF4B207A85E500871D52 /* testTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45EDF4A207A85E500871D52 /* testTableViewController.swift */; };
 		D45EDF4D207A87B400871D52 /* FinanceBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45EDF4C207A87B400871D52 /* FinanceBrain.swift */; };
 		D45EDF4F207A9CF000871D52 /* HelperFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45EDF4E207A9CF000871D52 /* HelperFile.swift */; };
+		D45EDF51207B1AF800871D52 /* HouseInputViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45EDF50207B1AF800871D52 /* HouseInputViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		D45EDF4A207A85E500871D52 /* testTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testTableViewController.swift; sourceTree = "<group>"; };
 		D45EDF4C207A87B400871D52 /* FinanceBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinanceBrain.swift; sourceTree = "<group>"; };
 		D45EDF4E207A9CF000871D52 /* HelperFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperFile.swift; sourceTree = "<group>"; };
+		D45EDF50207B1AF800871D52 /* HouseInputViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseInputViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				D43305D9206F1A110097465D /* HouseViewController.swift */,
+				D45EDF50207B1AF800871D52 /* HouseInputViewCell.swift */,
 				D45EDF4C207A87B400871D52 /* FinanceBrain.swift */,
 				D45EDF48207A821D00871D52 /* HouseTableViewCell.swift */,
 				D45EDF4E207A9CF000871D52 /* HelperFile.swift */,
@@ -294,6 +297,7 @@
 				D43305D8206F1A110097465D /* AppDelegate.swift in Sources */,
 				D45EDF4F207A9CF000871D52 /* HelperFile.swift in Sources */,
 				D4330609206F20C50097465D /* CarViewController.swift in Sources */,
+				D45EDF51207B1AF800871D52 /* HouseInputViewCell.swift in Sources */,
 				D45EDF49207A821D00871D52 /* HouseTableViewCell.swift in Sources */,
 				D45EDF4B207A85E500871D52 /* testTableViewController.swift in Sources */,
 				D45EDF4D207A87B400871D52 /* FinanceBrain.swift in Sources */,
