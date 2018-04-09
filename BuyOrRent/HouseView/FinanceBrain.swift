@@ -38,7 +38,8 @@ class FinanceBrain {
         let r = y / 12.0
         let exp = pow(1+r,Double(x))
         
-        return z * r * exp / (exp - 1 ) * Double(w) * 12.0
+        guard y != 0 else { return z / Double(x)}
+        return (z * r * exp / (exp - 1 )) * 12 * Double(w) //12 month, w = # years
     }
     
     
